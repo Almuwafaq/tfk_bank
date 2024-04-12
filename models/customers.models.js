@@ -1,8 +1,8 @@
 const dbConnect = require("../config/database")
-const createUserQuery = (customer_id,first_name,other_names,email,phone,address) => {
+const createUserQuery = (customer_id,first_name,other_names,email,phone,address,wallet,account_number) => {
     return new Promise((resolve,reject)=>{
-        dbConnect.query(`INSERT INTO CUSTOMER(customer_id,first_name,other_names,email,phone,address)
-        VALUES ('${customer_id}','${first_name}','${other_names}','${email}','${phone}','${address}')`,
+        dbConnect.query(`INSERT INTO CUSTOMERS(customer_id,first_name,other_names,email,phone,address,wallet,account_number)
+        VALUES ('${customer_id}','${first_name}','${other_names}','${email}','${phone}','${address}',${wallet},'${account_number}')`,
         (err, results) => {
             if(err) return reject(err)
             return resolve(results)
@@ -10,9 +10,9 @@ const createUserQuery = (customer_id,first_name,other_names,email,phone,address)
     })
 }
 
-const getSingleUserQuery =(datas)=>{
+const getSingleUserQuery =(email)=>{
     return new Promise((resolve, reject) => {
-        dbConnect.query(`SELECT * FROM CUSTOMER WHERE customer_id='${datas}' OR email = '${datas}'`,
+        dbConnect.query(`SELECT * FROM CUSTOMERS WHERE email = '${email}'`,
         (err,results) => {
             if(err) return reject(err)
             return resolve(results)
@@ -22,7 +22,7 @@ const getSingleUserQuery =(datas)=>{
 }
 const getAllUsersQuery =(datas)=>{
     return new Promise((resolve,reject)=>{
-        dbConnect.query(`SELECT * FROM CUSTOMER`,
+        dbConnect.query(`SELECT * FROM CUSTOMERS`,
         (err,results)=>{
             if(err) return reject(err)
             return resolve(results)

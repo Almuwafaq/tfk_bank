@@ -14,7 +14,9 @@ const creteUser = async(req,res)=> {
         }
         const {first_name,other_names,email,phone,address} = req.body
         const customer_id = uuid()
-        await createUserQuery(customer_id,first_name,other_names,email,phone,address)
+        const account_number = phone.slice(1)
+        const wallet = 0;
+        await createUserQuery(customer_id,first_name,other_names,email,phone,address,wallet,account_number)
    
     return res.status(200).json({
         status: true,
@@ -41,11 +43,12 @@ const getAllUsers = async(req,res)=> {
 
 const getSingleUser = async (req, res) => {
     try {
-        const {coustomer_id_or_email} = req.params
-        const singleGet = await getSingleUserQuery(coustomer_id_or_email)
-        if(!singleGet) throw new Error
+        const {email} = req.params
+        const singleGet = await getSingleUserQuery(email)
+        
+        if(!singleGet) throw new Error("user not found")
         delete singleGet[0].created_at
-        delete singleGet[0].upadted_at
+        delete singleGet[0].updated_at
 
         return res.status(200).json({
             status: true,

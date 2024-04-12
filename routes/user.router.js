@@ -5,7 +5,7 @@ const {getAllUsers,creteUser,getSingleUser} = require("../controllers/user.contr
 
 router.get("/getUsers",getAllUsers)
 
-router.get("/getSingleUsers/:coustomer_id_or_email",getSingleUser)
+router.get("/getSingleUser/:email",getSingleUser)
 
 router.post("/createUser",creteUser)
 
