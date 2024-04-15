@@ -31,10 +31,32 @@ const getAllUsersQuery =(datas)=>{
 
 }
 
+const creditUserQuery = (email,wallet)=>{
+    return new Promise((resolve,reject)=>{
+        dbConnect.query(`UPDATE CUSTOMERS SET wallet='${wallet}' WHERE email='${email}'`,
+        (err,results)=>{
+            if(err) return reject(err)
+            return resolve(results)
+        })
+    })
+}
+
+const deletSingleUserQuery = (eamil) => {
+    return new Promise((resolve, reject) => {
+        dbConnect.query(`DELETE FROM CUSTOMERS WHERE email ='${eamil}'`,
+        (err,results) => {
+            if (err) return reject(err)
+            return resolve (results)
+        })
+    })
+}
+
 
 
 module.exports ={
     createUserQuery,
     getAllUsersQuery,
-    getSingleUserQuery
+    getSingleUserQuery,
+    creditUserQuery,
+    deletSingleUserQuery
 }

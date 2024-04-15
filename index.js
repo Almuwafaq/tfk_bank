@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT
 
 const userRoutes = require('./routes/user.router')
-const dbConnection = require('./config/database')
+const dbConnection = require('./config/database');
 
 app.use(express.json())
 
@@ -21,10 +21,13 @@ dbConnection.connect(function(err) {
    
     console.log('connected as id ' + dbConnection.threadId);
 
-    app.listen(port,()=> {console.log(`listening on ${port}`)
+
+    app.listen(port, ()=> {console.log(`listening on ${port}`)
     displayRoutes(app)
 });
-  });
+});
+
+ 
 
 app.use((req,res)=>{
     res.status(400).json({
